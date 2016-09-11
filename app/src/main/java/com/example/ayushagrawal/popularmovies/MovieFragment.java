@@ -7,6 +7,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -35,6 +36,7 @@ import java.util.ArrayList;
 public class MovieFragment extends Fragment {
 
     GridView mMovieGrid;
+    String lastPerference = null;
 
     public MovieFragment(){
 
@@ -51,7 +53,10 @@ public class MovieFragment extends Fragment {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
         String preference = prefs.getString(getString(R.string.preference_key),
                 getString(R.string.preference_default_value));
-        loadMovies.execute(preference);
+        if(lastPerference != preference) {
+            loadMovies.execute(preference);
+            lastPerference = preference;
+        }
     }
 
     @Override
@@ -65,6 +70,7 @@ public class MovieFragment extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.content_main, container, false);
         Toolbar toolbar = (Toolbar) rootView.findViewById(R.id.toolbar);
+        ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
 
         mMovieGrid = (GridView) rootView.findViewById(R.id.topMovieGrid);
 
@@ -83,13 +89,10 @@ public class MovieFragment extends Fragment {
             try {
 
                 final String APPID_PARAM = "api_key";
-                final String QUERY_PARAM = "sort_by";
-                final String SORTING_ORDER = ".desc";
-                final String LOAD_MOVIE_BASE_URL = "http://api.themoviedb.org/3/discover/movie?";
+                final String LOAD_MOVIE_BASE_URL = "http://api.themoviedb.org/3/movie/"+ params[0] +"?";
                 final String MOVIE_API_KEY = "";
-                
+
                 Uri builtUri = Uri.parse(LOAD_MOVIE_BASE_URL).buildUpon()
-                        .appendQueryParameter(QUERY_PARAM, params[0] + SORTING_ORDER)
                         .appendQueryParameter(APPID_PARAM, MOVIE_API_KEY)
                         .build();
 
@@ -142,7 +145,7 @@ public class MovieFragment extends Fragment {
 
         @Override
         protected void onPostExecute(ArrayList<Movie> movieArrayList) {
-            if (!movieArrayList.isEmpty()) {
+            if (movieArrayList!=null && !movieArrayList.isEmpty()) {
                 load_adapter(movieArrayList);
             }
 

@@ -1,25 +1,24 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-xmlns:tools="http://schemas.android.com/tools"
-android:layout_width="match_parent"
-android:layout_height="match_parent"
-android:orientation="vertical"
-
-tools:context=".MainActivity">
-
-    <android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@android:color/holo_red_dark"
-        android:id="@+id/toolbar"/>
-
-
-
-<GridView
-    android:id="@+id/topMovieGrid"
-    android:gravity="center_horizontal"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:columnWidth="200dp"
-    android:numColumns="auto_fit" />
+    android:orientation="vertical"
+
+    tools:context=".MainActivity">
+
+    <android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/holo_red_dark" />
+
+
+    <GridView
+        android:id="@+id/topMovieGrid"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:columnWidth="200dp"
+        android:gravity="center_horizontal"
+        android:numColumns="auto_fit" />
 
 </LinearLayout>

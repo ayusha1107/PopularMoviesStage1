@@ -2,8 +2,8 @@
 <resources>
 
     <string-array name="values">
-        <item name="popular">popularity</item>
-        <item name="rated">vote_average</item>
+        <item name="popular">popular</item>
+        <item name="rated">top_rated</item>
     </string-array>
 
 </resources>
